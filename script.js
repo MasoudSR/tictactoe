@@ -2,10 +2,13 @@ const playerOne = [];
 const playerTwo = [];
 let playerTurn = 1;
 let filledBlocks = 0;
+let p1Score = 0;
+let p2Score = 0;
 
 const gameButtons = document.querySelectorAll(".btn");
 const retryBtn = document.querySelector(".retry-btn");
-const turn=document.querySelector(".turn")
+const turn = document.querySelector(".turn");
+const scoreBoard = document.querySelector(".score-board");
 
 const tieHandler = () => {
 	document.querySelector("h2").innerText = `it's tied, no one wins`;
@@ -27,11 +30,13 @@ const gameButtonsHandler = (event) => {
 		playerTurn = 1;
 	}
 	filledBlocks === 9 ? tieHandler() : null;
-    turn.innerText=`Player${playerTurn} turn`
+	turn.innerText = `Player${playerTurn} turn`;
 };
 
 const winHandler = (player) => {
 	document.querySelector("h2").innerText = `player ${playerTurn} win`;
+	playerTurn === 1 ? p1Score++ : p2Score++;
+    scoreBoard.innerText=`Player1 Score: ${p1Score} , Player2 Score: ${p2Score}`
 	gameButtons.forEach((btn) => {
 		btn.removeEventListener("click", gameButtonsHandler);
 	});
