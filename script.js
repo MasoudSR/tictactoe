@@ -34,7 +34,7 @@ const winHandler = (player) => {
 		btn.removeEventListener("click", gameButtonsHandler);
 	});
 	retryBtn.style.display = "inline-block";
-	filledBlocks=0;
+	filledBlocks = 0;
 };
 
 const winChecker = (player) => {
@@ -62,6 +62,7 @@ const startGame = () => {
 		playerOne.length = 0;
 		playerTwo.length = 0;
 		filledBlocks = 0;
+		retryBtn.style.display = "none";
 	});
 };
 
