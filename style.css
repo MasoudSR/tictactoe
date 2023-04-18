@@ -2,7 +2,13 @@
     padding: 0;
     margin: 0;
 }
-
+h1{
+    text-align: center;
+    margin: 2rem;
+}
+table{
+    margin: auto;
+}
 .btn {
     width: 5rem;
     height: 5rem;
