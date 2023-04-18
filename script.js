@@ -5,6 +5,7 @@ let filledBlocks = 0;
 
 const gameButtons = document.querySelectorAll(".btn");
 const retryBtn = document.querySelector(".retry-btn");
+const turn=document.querySelector(".turn")
 
 const tieHandler = () => {
 	document.querySelector("h2").innerText = `it's tied, no one wins`;
@@ -26,6 +27,7 @@ const gameButtonsHandler = (event) => {
 		playerTurn = 1;
 	}
 	filledBlocks === 9 ? tieHandler() : null;
+    turn.innerText=`Player${playerTurn} turn`
 };
 
 const winHandler = (player) => {
