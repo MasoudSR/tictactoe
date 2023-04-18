@@ -1,11 +1,19 @@
 const playerOne = [];
 const playerTwo = [];
 let playerTurn = 1;
+let filledBlocks = 0
+
 const gameButtons = document.querySelectorAll(".btn");
+const retryBtn = document.querySelector(".retry-btn")
+
+const tieHandler = ()=>{
+	document.querySelector("h2").innerText = `it's tied, no one wins`;
+    retryBtn.style.display="inline-block"
+}
 
 const gameButtonsHandler = (event) => {
-	console.log(playerOne);
-	event.target.style.pointerEvents = "none";
+    filledBlocks++
+    event.target.removeEventListener("click" , gameButtonsHandler)
 	if (playerTurn === 1) {
 		playerOne.push(Number(event.target.id));
 		event.target.innerText = "X";
@@ -17,61 +25,78 @@ const gameButtonsHandler = (event) => {
 		winChecker(playerTwo);
 		playerTurn = 1;
 	}
+    filledBlocks===9 ? tieHandler():null
 };
 
 const winHandler = (player) => {
-	console.log("win");
-	document.querySelector("h2").innerText = `player ${player} win`;
+	document.querySelector("h2").innerText = `player ${playerTurn} win`;
+    gameButtons.forEach(btn => {
+        btn.removeEventListener("click" , gameButtonsHandler)
+    });
+    retryBtn.style.display="inline-block"
+    filledBlocks++
 };
 
 const winChecker = (player) => {
 	if (player.indexOf(5) > -1) {
 		if (player.indexOf(2) > -1) {
 			if (player.indexOf(8) > -1) {
-				winHandler(1);
+				winHandler();
 			}
 		}
 		if (player.indexOf(4) > -1) {
 			if (player.indexOf(6) > -1) {
-				winHandler(1);
+				winHandler();
 			}
 		}
 		if (player.indexOf(1) > -1) {
 			if (player.indexOf(9) > -1) {
-				winHandler(1);
+				winHandler();
 			}
 		}
 		if (player.indexOf(3) > -1) {
 			if (player.indexOf(7) > -1) {
-				winHandler(1);
+				winHandler();
 			}
 		}
 	}
 	if (player.indexOf(1) > -1) {
 		if (player.indexOf(2) > -1) {
 			if (player.indexOf(3) > -1) {
-				winHandler(1);
+				winHandler();
 			}
 		}
 		if (player.indexOf(4) > -1) {
 			if (player.indexOf(7) > -1) {
-				winHandler(1);
+				winHandler();
 			}
 		}
 	}
 	if (player.indexOf(9) > -1) {
 		if (player.indexOf(6) > -1) {
 			if (player.indexOf(3) > -1) {
-				winHandler(1);
+				winHandler();
 			}
 		}
 		if (player.indexOf(8) > -1) {
 			if (player.indexOf(7) > -1) {
-				winHandler(1);
+				winHandler();
 			}
 		}
 	}
 };
-gameButtons.forEach((btn) => {
-	btn.addEventListener("click", gameButtonsHandler);
-});
+
+
+const startGame= ()=>{
+    gameButtons.forEach(btn => {
+        btn.addEventListener("click", gameButtonsHandler);
+        btn.innerText=""
+	document.querySelector("h2").innerText = "";
+        playerOne.length=0
+        playerTwo.length=0
+    });
+}
+
+retryBtn.addEventListener("click" , startGame)
+
+startGame()
